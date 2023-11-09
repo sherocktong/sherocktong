@@ -1,6 +1,10 @@
 ### To introduce myself 👋
 
-Good at backend programming with the experience over a decade. Farmiliar with AWS, Serverless, Micro-services. Experienced with Frontend developing for several projects as well.
+- Good at backend programming with the experience over a decade.
+- Farmiliar with AWS, Serverless, Micro-services.
+- Experienced with Frontend developing for several projects as well.
+
+Feel free to [mail](mailto:k.thomas.tong@gmail.com) me for further communications.
 <!--
 **sherocktong/sherocktong** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 

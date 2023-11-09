@@ -1,5 +1,6 @@
-### Hi there 👋
+### To introduce myself 👋
 
+Good at backend programming with the experience over a decade. Farmiliar with AWS, Serverless, Micro-services. Experienced with Frontend developing for several projects as well.
 <!--
 **sherocktong/sherocktong** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 

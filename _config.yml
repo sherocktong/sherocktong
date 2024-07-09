@@ -4,3 +4,4 @@ description: A experienced software engineer's page
 show_downloads: false
 google_analytics:
 theme: jekyll-theme-minimal
+baseurl: "/index.html"

@@ -1,123 +1,31 @@
 ---
 layout: default
 ---
+# What can I do for customers
 
-Text can be **bold**, _italic_, or ~~strikethrough~~.
+As a software engineer with more than a decade work experience, I can do:
+- Helping customers to design technical solutions of micro-services and manage project risks.
+- Making high-quality Java, Python, JS coding works.
+- Making AI 
 
-[Link to another page](./another-page.html).
+# Self Introduction 
 
-There should be whitespace between paragraphs.
+I am a software engineer with more than a decade work experience from China. I have worked as a software engineer and architect in several global companies such as QAD, Pacific Dunlop, Flexera. My recent job is in CI&T which is a global technical service company. I have participated several projects as an architect with global customers such as Unilever, Budweiser, Cover-More and Haleon. Now I am looking for a worldwide remote full time job or a worldwide remote part time job.
 
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
+# Technical Skills
+## Programming Languages
+- Master in Java, Python and Java Script. Great following rules of clean code.
+- Familiar with related frameworks and middlewares, like Spring Boot, Next.js, flask and pandas.
 
-# Header 1
+## AI Related
+- Familiar with using hugging-face transformers, to fine-tune AI base models with business-related datasets.
+- Experienced with several big data platform development and technical solution design.
 
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
+# Project Examples
+To protect customer's privacy. I hide the project details customer related.
 
-## Header 2
+## Python Data Processing Pipelines
+It is an open source python project to run pipelines like Github actions. Check out [the repository](https://github.com/sherocktong/bingdog) for more details
 
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
-
-### Header 3
-
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
-
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
-```
-
-#### Header 4
-
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-
-##### Header 5
-
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
-
-###### Header 6
-
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
-
-### There's a horizontal rule below this.
-
-* * *
-
-### Here is an unordered list:
-
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
-
-### And an ordered list:
-
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
-
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-```
-
-```
-The final element.
-```
+## Super App with Mini-programs Example
+This project is built with micro-services using Spring Cloud. Visit [white paper page](./projects/java-example.html) for more details.

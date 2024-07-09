@@ -4,4 +4,6 @@ description: "A experienced software engineer's page.\nEmail:k.thomas.tong@gmail
 show_downloads: false
 # google_analytics:
 theme: jekyll-theme-minimal
+domain: sherocktong.github.io
+url: https://sherocktong.github.io
 # baseurl: "/index.html"

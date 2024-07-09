@@ -5,5 +5,5 @@ show_downloads: false
 # google_analytics:
 theme: jekyll-theme-minimal
 domain: sherocktong.github.io
-url: https://sherocktong.github.io
+url: https://sherocktong.github.io/_site/
 # baseurl: "/index.html"

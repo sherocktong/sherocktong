@@ -1,8 +1,6 @@
-<!-- 
 ---
 layout: default
 ---
---> 
 # What can I do for customers
 
 As a software engineer with more than a decade work experience, I can do:

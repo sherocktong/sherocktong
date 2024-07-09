@@ -1,7 +1,7 @@
-title: Bing's Page
+title: "Bing's Page"
 logo: /assets/img/logo.png
 description: A experienced software engineer's page
 show_downloads: false
-google_analytics:
+# google_analytics:
 theme: jekyll-theme-minimal
-baseurl: "/index.html"
+# baseurl: "/index.html"

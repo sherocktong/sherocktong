@@ -6,7 +6,7 @@ layout: default
 As a software engineer with more than a decade work experience, I can do:
 - Helping customers to design technical solutions of micro-services and manage project risks.
 - Making high-quality Java, Python, JS coding works.
-- Making AI 
+- Making pre-trained AI models in specific business domains.
 
 # Self Introduction 
 

@@ -1,6 +1,8 @@
+<!-- 
 ---
 layout: default
 ---
+--> 
 [<< Back](../index.md)
 # Project Background
 This app was for smart city. It integrated a bunch of mini-programs so that citizens can use kinds of mini-apps in one super app. It promised user's privacy with one-time login by [OAuth protocol](https://oauth.net/2/).

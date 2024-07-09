@@ -28,4 +28,4 @@ To protect customer's privacy. I hide the project details customer related.
 It is an open source python project to run pipelines like Github actions. Check out [the repository](https://github.com/sherocktong/bingdog) for more details
 
 ## Super App with Mini-programs Example
-This project is built with micro-services using Spring Cloud. Visit [white paper page](./projects/java-example.html) for more details.
+This project is built with micro-services using Spring Cloud. Visit [white paper page](./projects/java-example.md) for more details.

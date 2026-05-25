@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bing Tong | Cyberpunk Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #0d0221;
+  --bg-secondary: #11052c;
+  --bg-tertiary: #1a0b3d;
+  --neon-cyan: #00f3ff;
+  --neon-magenta: #ff00ff;
+  --neon-yellow: #faff00;
+  --neon-purple: #bc13fe;
+  --neon-green: #0aff00;
+  --text-primary: #e0e0e0;
+  --text-dim: #888;
+  --pixel-size: 4px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ===== CRT SCANLINE OVERLAY ===== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanline-flicker 0.15s infinite;
+}
+
+@keyframes scanline-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.98; }
+}
+
+/* ===== CRT FLICKER OVERLAY ===== */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.neon-cyan { color: var(--neon-cyan); text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+.neon-magenta { color: var(--neon-magenta); text-shadow: 0 0 5px var(--neon-magenta), 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta); }
+.neon-yellow { color: var(--neon-yellow); text-shadow: 0 0 5px var(--neon-yellow), 0 0 10px var(--neon-yellow), 0 0 20px var(--neon-yellow); }
+.neon-purple { color: var(--neon-purple); text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple); }
+.neon-green { color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green), 0 0 20px var(--neon-green); }
+
+.glow-cyan { box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), inset 0 0 5px rgba(0, 243, 255, 0.1); }
+.glow-magenta { box-shadow: 0 0 5px var(--neon-magenta), 0 0 10px var(--neon-magenta), inset 0 0 5px rgba(255, 0, 255, 0.1); }
+.glow-yellow { box-shadow: 0 0 5px var(--neon-yellow), 0 0 10px var(--neon-yellow), inset 0 0 5px rgba(250, 255, 0, 0.1); }
+
+.pixel-border {
+  border: var(--pixel-size) solid var(--neon-cyan);
+  box-shadow:
+    0 0 0 2px var(--bg-primary),
+    0 0 0 4px var(--neon-cyan),
+    0 0 10px var(--neon-cyan);
+}
+
+.pixel-border-magenta {
+  border: var(--pixel-size) solid var(--neon-magenta);
+  box-shadow:
+    0 0 0 2px var(--bg-primary),
+    0 0 0 4px var(--neon-magenta),
+    0 0 10px var(--neon-magenta);
+}
+
+/* ===== GLITCH ANIMATION ===== */
+.glitch {
+  position: relative;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch::before {
+  color: var(--neon-magenta);
+  animation: glitch-1 2s infinite linear alternate-reverse;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+
+.glitch::after {
+  color: var(--neon-cyan);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-1 {
+  0%, 90%, 100% { transform: translate(0); }
+  92% { transform: translate(-3px, 1px); }
+  94% { transform: translate(3px, -1px); }
+  96% { transform: translate(-2px, 2px); }
+  98% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitch-2 {
+  0%, 90%, 100% { transform: translate(0); }
+  91% { transform: translate(3px, -1px); }
+  93% { transform: translate(-3px, 1px); }
+  95% { transform: translate(2px, 2px); }
+  97% { transform: translate(-2px, -2px); }
+}
+
+/* ===== BLINKING CURSOR ===== */
+.cursor {
+  display: inline-block;
+  width: 12px;
+  height: 1.2em;
+  background-color: var(--neon-cyan);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ===== TERMINAL WINDOW ===== */
+.terminal-window {
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-window::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  opacity: 0.3;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: linear-gradient(90deg, rgba(0, 243, 255, 0.2), rgba(188, 19, 254, 0.2));
+  border-bottom: 2px solid var(--neon-cyan);
+  position: relative;
+  z-index: 1;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 0;
+  margin-right: 8px;
+  border: 2px solid;
+}
+
+.terminal-dot.red { background-color: #ff4444; border-color: #ff6666; }
+.terminal-dot.yellow { background-color: #ffaa00; border-color: #ffcc44; }
+.terminal-dot.green { background-color: #00ff44; border-color: #44ff66; }
+
+.terminal-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--neon-cyan);
+  margin-left: auto;
+  letter-spacing: 1px;
+}
+
+.terminal-body {
+  padding: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.terminal-body p {
+  margin-bottom: 12px;
+}
+
+.terminal-body p::before {
+  content: '> ';
+  color: var(--neon-green);
+}
+
+/* ===== SECTIONS ===== */
+section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 24px;
+  margin-bottom: 40px;
+  text-align: center;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan);
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  margin-top: 12px;
+}
+
+/* ===== HERO SECTION ===== */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+#hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(0, 243, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-name {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(24px, 6vw, 56px);
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: 4px;
+  line-height: 1.4;
+}
+
+.hero-tagline {
+  font-family: 'VT323', monospace;
+  font-size: clamp(20px, 3vw, 32px);
+  color: var(--neon-yellow);
+  text-shadow: 0 0 5px var(--neon-yellow);
+  margin-bottom: 30px;
+}
+
+.hero-sub {
+  font-size: 22px;
+  color: var(--text-dim);
+  max-width: 600px;
+}
+
+/* ===== SKILLS GRID ===== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 24px;
+}
+
+.skill-card {
+  background-color: var(--bg-secondary);
+  border: 3px solid var(--neon-cyan);
+  padding: 24px 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: default;
+  position: relative;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: transparent;
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 10px rgba(0, 243, 255, 0.1);
+}
+
+.skill-card:hover::before {
+  border-color: var(--neon-magenta);
+}
+
+.skill-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.skill-name {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--neon-cyan);
+  letter-spacing: 1px;
+}
+
+/* ===== PROJECTS GRID ===== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.project-card {
+  background-color: var(--bg-secondary);
+  border: 3px solid var(--neon-magenta);
+  padding: 0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.project-card:hover::before {
+  left: 100%;
+}
+
+.project-card:hover {
+  box-shadow: 0 0 20px var(--neon-magenta), inset 0 0 15px rgba(255, 0, 255, 0.1);
+  transform: translateY(-4px);
+}
+
+.project-header {
+  padding: 16px 20px;
+  background: linear-gradient(90deg, rgba(255, 0, 255, 0.15), transparent);
+  border-bottom: 2px solid var(--neon-magenta);
+}
+
+.project-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  color: var(--neon-magenta);
+  margin: 0;
+}
+
+.project-body {
+  padding: 20px;
+}
+
+.project-desc {
+  color: var(--text-dim);
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.project-tag {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  padding: 4px 8px;
+  border: 2px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  background-color: rgba(0, 243, 255, 0.1);
+}
+
+/* ===== CONTACT / FOOTER ===== */
+#contact {
+  padding-bottom: 40px;
+}
+
+.contact-terminal {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.contact-link {
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  color: var(--neon-cyan);
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 2px solid var(--neon-cyan);
+  background-color: rgba(0, 243, 255, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.contact-link::before {
+  content: '$ ';
+  color: var(--neon-green);
+}
+
+.contact-link:hover {
+  background-color: rgba(0, 243, 255, 0.2);
+  box-shadow: 0 0 10px var(--neon-cyan);
+  color: var(--neon-yellow);
+  border-color: var(--neon-yellow);
+}
+
+.footer-copy {
+  text-align: center;
+  margin-top: 40px;
+  color: var(--text-dim);
+  font-size: 18px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  section {
+    padding: 60px 16px;
+  }
+
+  .terminal-body {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-name {
+    letter-spacing: 2px;
+  }
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-cyan);
+  border: 2px solid var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-magenta);
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <h1 class="hero-name glitch" data-text="BING TONG">BING TONG</h1>
+  <p class="hero-tagline">Cyberpunk Developer // Code Architect</p>
+  <p class="hero-sub">Building the future, one pixel at a time<span class="cursor"></span></p>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <h2 class="section-title">ABOUT_ME.exe</h2>
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <span class="terminal-dot red"></span>
+      <span class="terminal-dot yellow"></span>
+      <span class="terminal-dot green"></span>
+      <span class="terminal-title">user@cyberdeck:~</span>
+    </div>
+    <div class="terminal-body">
+      <p>Initializing bio sequence...</p>
+      <p>Hello, world! I'm Bing Tong, a developer who thrives at the intersection of code and creativity.</p>
+      <p>I craft digital experiences with retro-futuristic aesthetics and modern engineering.</p>
+      <p>When I'm not hacking on projects, you can find me exploring neon-lit cityscapes.</p>
+      <p>Status: <span class="neon-green">ONLINE</span> | Location: The Grid | Mood: Caffeinated</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills">
+  <h2 class="section-title">SKILLS.dat</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <span class="skill-icon">&#60;/&#62;</span>
+      <span class="skill-name">HTML/CSS</span>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">JS</span>
+      <span class="skill-name">JAVASCRIPT</span>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">PY</span>
+      <span class="skill-name">PYTHON</span>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">DB</span>
+      <span class="skill-name">DATABASE</span>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">GIT</span>
+      <span class="skill-name">VERSION CTRL</span>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">API</span>
+      <span class="skill-name">REST APIs</span>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">UX</span>
+      <span class="skill-name">UI/UX</span>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">AI</span>
+      <span class="skill-name">AI/ML</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects">
+  <h2 class="section-title">PROJECTS.bin</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-header">
+        <h3 class="project-title">NEON_DASH</h3>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">A cyberpunk-themed data visualization dashboard with real-time analytics and neon aesthetics.</p>
+        <div class="project-tags">
+          <span class="project-tag">REACT</span>
+          <span class="project-tag">D3.JS</span>
+          <span class="project-tag">WEBSOCKET</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <h3 class="project-title">GRID_WALKER</h3>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">Procedural city generator that creates infinite neon-soaked urban landscapes.</p>
+        <div class="project-tags">
+          <span class="project-tag">THREE.JS</span>
+          <span class="project-tag">GLSL</span>
+          <span class="project-tag">WEBGL</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <h3 class="project-title">CYBER_CHAT</h3>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">End-to-end encrypted messaging app with terminal-inspired UI and retro animations.</p>
+        <div class="project-tags">
+          <span class="project-tag">NODE.JS</span>
+          <span class="project-tag">SOCKET.IO</span>
+          <span class="project-tag">CRYPTO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <h2 class="section-title">CONTACT.sys</h2>
+  <div class="terminal-window contact-terminal">
+    <div class="terminal-header">
+      <span class="terminal-dot red"></span>
+      <span class="terminal-dot yellow"></span>
+      <span class="terminal-dot green"></span>
+      <span class="terminal-title">connect@cyberdeck:~</span>
+    </div>
+    <div class="terminal-body">
+      <p>Ready to establish connection...</p>
+      <p>Select a protocol to initiate contact:</p>
+      <div class="contact-links">
+        <a href="#" class="contact-link">github</a>
+        <a href="#" class="contact-link">linkedin</a>
+        <a href="#" class="contact-link">twitter</a>
+        <a href="#" class="contact-link">email</a>
+      </div>
+    </div>
+  </div>
+  <p class="footer-copy">&copy; 2026 Bing Tong | All systems nominal</p>
+</section>
+
+<script></script>
+</body>
+</html>
